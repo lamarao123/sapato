@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SapatoStyle - Loja de Sapatos</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #adff2f; /* Verde limão */
+            --secondary-color: #ff8c00; /* Laranja */
+            --dark-color: #000000; /* Preto */
+            --light-color: #1a1a1a; /* Preto mais claro para fundos */
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--light-color);
+            color: #ffffff;
+        }
+        
+        .navbar {
+            background-color: #000000;
+            padding: 1rem;
+            border-bottom: 3px solid var(--primary-color);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            color: white;
+            font-size: 1.8rem;
+        }
+        
+        .navbar-brand span {
+            color: var(--secondary-color);
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('/api/placeholder/1200/600') center/cover no-repeat;
+            color: white;
+            padding: 6rem 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            border-color: var(--primary-color);
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
+            color: black;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            color: black;
+        }
+        
+        .products {
+            padding: 5rem 0;
+            background-color: #0a0a0a;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #ffffff;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: "";
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background-color: var(--primary-color);
+        }
+        
+        .card {
+            border-radius: 10px;
+            overflow: hidden;
+            border: 2px solid var(--primary-color);
+            background-color: #111111;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+            margin-bottom: 2rem;
+            color: #ffffff;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .card-img-top {
+            height: 220px;
+            object-fit: cover;
+        }
+        
+        .card-body {
+            padding: 1.5rem;
+        }
+        
+        .card-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--secondary-color);
+        }
+        
+        .btn-cart {
+            background-color: var(--secondary-color);
+            color: black;
+            border: none;
+            border-radius: 50px;
+            padding: 0.5rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-cart:hover {
+            background-color: var(--primary-color);
+            color: black;
+        }
+        
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background-color: var(--secondary-color);
+            color: black;
+            border-radius: 50px;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+            z-index: 1000;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary-color);
+        }
+        
+        .whatsapp-float:hover {
+            background-color: var(--primary-color);
+            color: black;
+            transform: translateY(-5px);
+        }
+        
+        .whatsapp-float i {
+            font-size: 1.5rem;
+            margin-right: 8px;
+        }
+        
+        .features {
+            padding: 5rem 0;
+            background-color: #0a0a0a;
+        }
+        
+        .feature-box {
+            text-align: center;
+            padding: 2rem;
+            background-color: #111111;
+            border: 2px solid var(--secondary-color);
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            margin-bottom: 2rem;
+            height: 100%;
+            color: #ffffff;
+        }
+        
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        .feature-title {
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-desc {
+            color: #cccccc;
+        }
+        
+        .testimonials {
+            padding: 5rem 0;
+            background-color: #000000;
+            color: white;
+        }
+        
+        .testimonial-card {
+            background-color: #111111;
+            padding: 2rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-color);
+            margin-bottom: 2rem;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+        
+        .testimonial-name {
+            font-weight: 600;
+        }
+        
+        footer {
+            background-color: #1a1a1a;
+            color: white;
+            padding: 2rem 0;
+        }
+        
+        .footer-links h5 {
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .footer-links ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--primary-color);
+        }
+        
+        .social-icons {
+            margin-top: 1.5rem;
+        }
+        
+        .social-icons a {
+            color: white;
+            background-color: rgba(255, 255, 255, 0.1);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="#">Sapato<span>Style</span></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#home">Início</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#products">Produtos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Diferenciais</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#testimonials">Depoimentos</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="container">
+            <h1>Estilo e Conforto em Cada Passo</h1>
+            <p>Descubra nossa nova coleção de sapatos que combinam design moderno com o máximo de conforto para o seu dia a dia.</p>
+            <a href="#products" class="btn btn-primary btn-lg">Ver Coleção</a>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products" id="products">
+        <div class="container">
+            <h2 class="section-title">Nossos Produtos</h2>
+            <div class="row">
+                <!-- Product 1 -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="card">
+                        <img src="06.jfif" class="card-img-top" alt="Tênis Esportivo">
+                        <div class="card-body">
+                            <h5 class="card-title">Tênis Esportivo Ultra</h5>
+                            <p class="card-text">Tênis esportivo com tecnologia de amortecimento e design moderno para sua prática esportiva.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="price">R$ 299,90</span>
+                                <button class="btn btn-cart" onclick="contactWhatsApp('Tênis Esportivo Ultra')">
+                                    <i class="fas fa-shopping-cart me-1"></i> Comprar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="card">
+                        <img src="05.jfif" class="card-img-top" alt="Sapato Social">
+                        <div class="card-body">
+                            <h5 class="card-title">Sapato Social Elegance</h5>
+                            <p class="card-text">Sapato social em couro legítimo, perfeito para ocasiões formais e ambiente de trabalho.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="price">R$ 349,90</span>
+                                <button class="btn btn-cart" onclick="contactWhatsApp('Sapato Social Elegance')">
+                                    <i class="fas fa-shopping-cart me-1"></i> Comprar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+
+                <!-- Product 3 -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="card">
+                        <img src="04.jfif" class="card-img-top" alt="Sandália Feminina">
+                        <div class="card-body">
+                            <h5 class="card-title">Sandália Charme</h5>
+                            <p class="card-text">Sandália feminina elegante com salto médio, ideal para eventos e ocasiões especiais.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="price">R$ 189,90</span>
+                                <button class="btn btn-cart" onclick="contactWhatsApp('Sandália Charme')">
+                                    <i class="fas fa-shopping-cart me-1"></i> Comprar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="card">
+                        <img src="03.jfif" class="card-img-top" alt="Bota Masculina">
+                        <div class="card-body">
+                            <h5 class="card-title">Bota Adventure Pro</h5>
+                            <p class="card-text">Bota masculina resistente à água, perfeita para trilhas e aventuras ao ar livre.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="price">R$ 399,90</span>
+                                <button class="btn btn-cart" onclick="contactWhatsApp('Bota Adventure Pro')">
+                                    <i class="fas fa-shopping-cart me-1"></i> Comprar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 5 -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="card">
+                        <img src="02.jfif" class="card-img-top" alt="Mocassim">
+                        <div class="card-body">
+                            <h5 class="card-title">Mocassim Comfort</h5>
+                            <p class="card-text">Mocassim em couro macio com solado flexível para máximo conforto no dia a dia.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="price">R$ 259,90</span>
+                                <button class="btn btn-cart" onclick="contactWhatsApp('Mocassim Comfort')">
+                                    <i class="fas fa-shopping-cart me-1"></i> Comprar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 6 -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="card">
+                        <img src="01.jfif" class="card-img-top" alt="Sapatilha Feminina">
+                        <div class="card-body">
+                            <h5 class="card-title">Sapatilha Chic</h5>
+                            <p class="card-text">Sapatilha feminina em material sintético com detalhes elegantes e conforto para o dia todo.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="price">R$ 149,90</span>
+                                <button class="btn btn-cart" onclick="contactWhatsApp('Sapatilha Chic')">
+                                    <i class="fas fa-shopping-cart me-1"></i> Comprar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       
+    </section>
+     <!-- Products Section -->
+     <section class="products" id="products">
+        <div class="container">
+            <h2 class="section-title">Nossos Produtos</h2>
+            <div class="row">
+                <!-- Product 7 -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="card">
+                        <img src="07.jfif" class="card-img-top" alt="Tênis Esportivo">
+                        <div class="card-body">
+                            <h5 class="card-title">Tênis Esportivo Ultra</h5>
+                            <p class="card-text">Tênis esportivo com tecnologia de amortecimento e design moderno para sua prática esportiva.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="price">R$ 299,90</span>
+                                <button class="btn btn-cart" onclick="contactWhatsApp('Tênis Esportivo Ultra')">
+                                    <i class="fas fa-shopping-cart me-1"></i> Comprar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 8 -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="card">
+                        <img src="08.jfif" class="card-img-top" alt="Sapato Social">
+                        <div class="card-body">
+                            <h5 class="card-title">Sapato Social Elegance</h5>
+                            <p class="card-text">Sapato social em couro legítimo, perfeito para ocasiões formais e ambiente de trabalho.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="price">R$ 349,90</span>
+                                <button class="btn btn-cart" onclick="contactWhatsApp('Sapato Social Elegance')">
+                                    <i class="fas fa-shopping-cart me-1"></i> Comprar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                
+
+                <!-- Product 9 -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="card">
+                        <img src="09.jfif" class="card-img-top" alt="Sandália Feminina">
+                        <div class="card-body">
+                            <h5 class="card-title">Sandália Charme</h5>
+                            <p class="card-text">Sandália feminina elegante com salto médio, ideal para eventos e ocasiões especiais.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="price">R$ 189,90</span>
+                                <button class="btn btn-cart" onclick="contactWhatsApp('Sandália Charme')">
+                                    <i class="fas fa-shopping-cart me-1"></i> Comprar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 10 -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="card">
+                        <img src="10.jfif" class="card-img-top" alt="Bota Masculina">
+                        <div class="card-body">
+                            <h5 class="card-title">Bota Adventure Pro</h5>
+                            <p class="card-text">Bota masculina resistente à água, perfeita para trilhas e aventuras ao ar livre.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="price">R$ 399,90</span>
+                                <button class="btn btn-cart" onclick="contactWhatsApp('Bota Adventure Pro')">
+                                    <i class="fas fa-shopping-cart me-1"></i> Comprar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 11 -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="card">
+                        <img src="11.jfif" class="card-img-top" alt="Mocassim">
+                        <div class="card-body">
+                            <h5 class="card-title">Mocassim Comfort</h5>
+                            <p class="card-text">Mocassim em couro macio com solado flexível para máximo conforto no dia a dia.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="price">R$ 259,90</span>
+                                <button class="btn btn-cart" onclick="contactWhatsApp('Mocassim Comfort')">
+                                    <i class="fas fa-shopping-cart me-1"></i> Comprar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 12 -->
+                <div class="col-md-4 col-sm-6">
+                    <div class="card">
+                        <img src="12.jfif" class="card-img-top" alt="Sapatilha Feminina">
+                        <div class="card-body">
+                            <h5 class="card-title">Sapatilha Chic</h5>
+                            <p class="card-text">Sapatilha feminina em material sintético com detalhes elegantes e conforto para o dia todo.</p>
+                            <div class="d-flex justify-content-between align-items-center mt-3">
+                                <span class="price">R$ 149,90</span>
+                                <button class="btn btn-cart" onclick="contactWhatsApp('Sapatilha Chic')">
+                                    <i class="fas fa-shopping-cart me-1"></i> Comprar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+       
+    </section>
+ <!-- Products Section -->
+ <section class="products" id="products">
+    <div class="container">
+        <h2 class="section-title">Nossos Produtos</h2>
+        <div class="row">
+            <!-- Product 13 -->
+            <div class="col-md-4 col-sm-6">
+                <div class="card">
+                    <img src="13.jfif" class="card-img-top" alt="Tênis Esportivo">
+                    <div class="card-body">
+                        <h5 class="card-title">Tênis Esportivo Ultra</h5>
+                        <p class="card-text">Tênis esportivo com tecnologia de amortecimento e design moderno para sua prática esportiva.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <span class="price">R$ 299,90</span>
+                            <button class="btn btn-cart" onclick="contactWhatsApp('Tênis Esportivo Ultra')">
+                                <i class="fas fa-shopping-cart me-1"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 14 -->
+            <div class="col-md-4 col-sm-6">
+                <div class="card">
+                    <img src="14.jfif" class="card-img-top" alt="Sapato Social">
+                    <div class="card-body">
+                        <h5 class="card-title">Sapato Social Elegance</h5>
+                        <p class="card-text">Sapato social em couro legítimo, perfeito para ocasiões formais e ambiente de trabalho.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <span class="price">R$ 349,90</span>
+                            <button class="btn btn-cart" onclick="contactWhatsApp('Sapato Social Elegance')">
+                                <i class="fas fa-shopping-cart me-1"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+
+            <!-- Product 15 -->
+            <div class="col-md-4 col-sm-6">
+                <div class="card">
+                    <img src="15.jfif" class="card-img-top" alt="Sandália Feminina">
+                    <div class="card-body">
+                        <h5 class="card-title">Sandália Charme</h5>
+                        <p class="card-text">Sandália feminina elegante com salto médio, ideal para eventos e ocasiões especiais.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <span class="price">R$ 189,90</span>
+                            <button class="btn btn-cart" onclick="contactWhatsApp('Sandália Charme')">
+                                <i class="fas fa-shopping-cart me-1"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 16 -->
+            <div class="col-md-4 col-sm-6">
+                <div class="card">
+                    <img src="16.jfif" class="card-img-top" alt="Bota Masculina">
+                    <div class="card-body">
+                        <h5 class="card-title">Bota Adventure Pro</h5>
+                        <p class="card-text">Bota masculina resistente à água, perfeita para trilhas e aventuras ao ar livre.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <span class="price">R$ 399,90</span>
+                            <button class="btn btn-cart" onclick="contactWhatsApp('Bota Adventure Pro')">
+                                <i class="fas fa-shopping-cart me-1"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 17 -->
+            <div class="col-md-4 col-sm-6">
+                <div class="card">
+                    <img src="17.jfif" class="card-img-top" alt="Mocassim">
+                    <div class="card-body">
+                        <h5 class="card-title">Mocassim Comfort</h5>
+                        <p class="card-text">Mocassim em couro macio com solado flexível para máximo conforto no dia a dia.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <span class="price">R$ 259,90</span>
+                            <button class="btn btn-cart" onclick="contactWhatsApp('Mocassim Comfort')">
+                                <i class="fas fa-shopping-cart me-1"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 18 -->
+            <div class="col-md-4 col-sm-6">
+                <div class="card">
+                    <img src="18.jfif" class="card-img-top" alt="Sapatilha Feminina">
+                    <div class="card-body">
+                        <h5 class="card-title">Sapatilha Chic</h5>
+                        <p class="card-text">Sapatilha feminina em material sintético com detalhes elegantes e conforto para o dia todo.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <span class="price">R$ 149,90</span>
+                            <button class="btn btn-cart" onclick="contactWhatsApp('Sapatilha Chic')">
+                                <i class="fas fa-shopping-cart me-1"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+</section>
+ <!-- Products Section -->
+ <section class="products" id="products">
+    <div class="container">
+        <h2 class="section-title">Nossos Produtos</h2>
+        <div class="row">
+            <!-- Product 19 -->
+            <div class="col-md-4 col-sm-6">
+                <div class="card">
+                    <img src="19.jfif" class="card-img-top" alt="Tênis Esportivo">
+                    <div class="card-body">
+                        <h5 class="card-title">Tênis Esportivo Ultra</h5>
+                        <p class="card-text">Tênis esportivo com tecnologia de amortecimento e design moderno para sua prática esportiva.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <span class="price">R$ 299,90</span>
+                            <button class="btn btn-cart" onclick="contactWhatsApp('Tênis Esportivo Ultra')">
+                                <i class="fas fa-shopping-cart me-1"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 20 -->
+            <div class="col-md-4 col-sm-6">
+                <div class="card">
+                    <img src="20.jfif" class="card-img-top" alt="Sapato Social">
+                    <div class="card-body">
+                        <h5 class="card-title">Sapato Social Elegance</h5>
+                        <p class="card-text">Sapato social em couro legítimo, perfeito para ocasiões formais e ambiente de trabalho.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <span class="price">R$ 349,90</span>
+                            <button class="btn btn-cart" onclick="contactWhatsApp('Sapato Social Elegance')">
+                                <i class="fas fa-shopping-cart me-1"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            
+
+            <!-- Product 21 -->
+            <div class="col-md-4 col-sm-6">
+                <div class="card">
+                    <img src="21.jfif" class="card-img-top" alt="Sandália Feminina">
+                    <div class="card-body">
+                        <h5 class="card-title">Sandália Charme</h5>
+                        <p class="card-text">Sandália feminina elegante com salto médio, ideal para eventos e ocasiões especiais.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <span class="price">R$ 189,90</span>
+                            <button class="btn btn-cart" onclick="contactWhatsApp('Sandália Charme')">
+                                <i class="fas fa-shopping-cart me-1"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 22 -->
+            <div class="col-md-4 col-sm-6">
+                <div class="card">
+                    <img src="22.jfif" class="card-img-top" alt="Bota Masculina">
+                    <div class="card-body">
+                        <h5 class="card-title">Bota Adventure Pro</h5>
+                        <p class="card-text">Bota masculina resistente à água, perfeita para trilhas e aventuras ao ar livre.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <span class="price">R$ 399,90</span>
+                            <button class="btn btn-cart" onclick="contactWhatsApp('Bota Adventure Pro')">
+                                <i class="fas fa-shopping-cart me-1"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 23 -->
+            <div class="col-md-4 col-sm-6">
+                <div class="card">
+                    <img src="23.jfif" class="card-img-top" alt="Mocassim">
+                    <div class="card-body">
+                        <h5 class="card-title">Mocassim Comfort</h5>
+                        <p class="card-text">Mocassim em couro macio com solado flexível para máximo conforto no dia a dia.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <span class="price">R$ 259,90</span>
+                            <button class="btn btn-cart" onclick="contactWhatsApp('Mocassim Comfort')">
+                                <i class="fas fa-shopping-cart me-1"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Product 24 -->
+            <div class="col-md-4 col-sm-6">
+                <div class="card">
+                    <img src="24.jfif" class="card-img-top" alt="Sapatilha Feminina">
+                    <div class="card-body">
+                        <h5 class="card-title">Sapatilha Chic</h5>
+                        <p class="card-text">Sapatilha feminina em material sintético com detalhes elegantes e conforto para o dia todo.</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <span class="price">R$ 149,90</span>
+                            <button class="btn btn-cart" onclick="contactWhatsApp('Sapatilha Chic')">
+                                <i class="fas fa-shopping-cart me-1"></i> Comprar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+   
+</section>
+
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">Nossos Diferenciais</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-medal"></i>
+                        </div>
+                        <h4 class="feature-title">Qualidade Premium</h4>
+                        <p class="feature-desc">Trabalhamos apenas com materiais de alta qualidade para garantir durabilidade e conforto.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <h4 class="feature-title">Entrega Rápida</h4>
+                        <p class="feature-desc">Enviamos seu pedido no mesmo dia para que você receba o quanto antes.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="feature-box">
+                        <div class="feature-icon">
+                            <i class="fas fa-undo"></i>
+                        </div>
+                        <h4 class="feature-title">Troca Garantida</h4>
+                        <p class="feature-desc">Não serviu ou não gostou? Trocamos seu produto em até 30 dias sem complicação.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials" id="testimonials">
+        <div class="container">
+            <h2 class="section-title" style="color: white;">O Que Nossos Clientes Dizem</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">"Os sapatos são extremamente confortáveis e duráveis. Já comprei vários modelos e sempre fico satisfeita!"</p>
+                        <p class="testimonial-name">- Maria Silva</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">"Atendimento rápido pelo WhatsApp e entrega no prazo. Os tênis esportivos são excelentes para meus treinos."</p>
+                        <p class="testimonial-name">- João Santos</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">"As botas que comprei são perfeitas! Qualidade impecável e o preço estava excelente comparado a outras lojas."</p>
+                        <p class="testimonial-name">- Ana Oliveira</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="footer-links">
+                        <h5>SapatoStyle</h5>
+                        <p>Sua loja especializada em calçados de qualidade, combinando estilo, conforto e preço justo.</p>
+                        <div class="social-icons">
+                            <a href="#"><i class="fab fa-facebook-f"></i></a>
+                            <a href="#"><i class="fab fa-instagram"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="footer-links">
+                        <h5>Links Úteis</h5>
+                        <ul>
+                            <li><a href="#">Sobre Nós</a></li>
+                            <li><a href="#">Política de Troca</a></li>
+                            <li><a href="#">Termos e Condições</a></li>
+                            <li><a href="#">FAQ</a></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="footer-links">
+                        <h5>Contato</h5>
+                        <ul>
+                            <li><i class="fas fa-map-marker-alt me-2"></i> Rua</li>
+                            <li><i class="fas fa-phone me-2"></i> (69) 9 9251-8269</li>
+                            <li><i class="fas fa-envelope me-2"></i>lamarao2@gmail.com</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>© 2025 SapatoStyle. Todos os direitos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float Button -->
+    <a href="5569992518263" class="whatsapp-float" onclick="contactWhatsAppGeneral(); return false;">
+        <i class="fab fa-whatsapp"></i>
+        <span>Fale Conosco</span>
+    </a>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        // Function to handle WhatsApp contact with product info
+        function contactWhatsApp(productName) {
+            const phoneNumber = "5569992518263"; // Replace with your actual WhatsApp number
+            const message = encodeURIComponent(`Olá! Estou interessado(a) no produto "${productName}". Gostaria de mais informações.`);
+            window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+        }
+        
+        // Function to handle general WhatsApp contact
+        function contactWhatsAppGeneral() {
+            const phoneNumber = "5569992518263"; // Replace with your actual WhatsApp number
+            const message = encodeURIComponent("Olá! Gostaria de saber mais sobre os produtos da SapatoStyle.");
+            window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+        }
+        
+        // Smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
